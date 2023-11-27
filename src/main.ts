@@ -15,47 +15,7 @@ import {
 } from './constants';
 
 import './style.css';
-const exchangeLogic: Function = (
-  firstValue: HTMLInputElement,
-  firstSelectValue: HTMLInputElement,
-  secondSelectValue: HTMLInputElement
-) => {
-  if (firstValue.value.length !== 0) {
-    const exchangeRates: Record<string, Record<string, number>> = {
-      $: { '€': 1.09, '₴': 0.028 },
-      '€': { $: 0.91, '₴': 0.025 },
-      '₴': { $: 37, '€': 40 },
-    };
 
-    const fromCurrency = firstSelectValue.value;
-    const toCurrency = secondSelectValue.value;
-    const amount = parseInt(firstValue.value);
-
-    if (
-      exchangeRates[fromCurrency] &&
-      exchangeRates[fromCurrency][toCurrency]
-    ) {
-      const exchangeRate = exchangeRates[fromCurrency][toCurrency];
-      const result = exchangeRate * amount;
-      resultValue.placeholder = `${result}`;
-    } else {
-      console.error('can`t exchange this currency');
-    }
-  }
-};
-const exchangeListener: Function = () => {
-  const firstValue = document.getElementById(
-    'first__value'
-  ) as HTMLInputElement;
-
-  const firstSelectValue: HTMLInputElement = document.getElementById(
-    'first__select__value'
-  );
-  const secondSelectValue: HTMLInputElement = document.getElementById(
-    'second__select__value'
-  );
-  exchangeLogic(firstValue, firstSelectValue, secondSelectValue);
-};
 let counter = 0;
 let isActive = true;
 
@@ -120,7 +80,47 @@ main.append(
   secondSelectValue,
   convertBtn
 );
+const exchangeLogic: Function = (
+  firstValue: HTMLInputElement,
+  firstSelectValue: HTMLInputElement,
+  secondSelectValue: HTMLInputElement
+) => {
+  if (firstValue.value.length !== 0) {
+    const exchangeRates: Record<string, Record<string, number>> = {
+      $: { '€': 1.09, '₴': 0.028 },
+      '€': { $: 0.91, '₴': 0.025 },
+      '₴': { $: 37, '€': 40 },
+    };
 
+    const fromCurrency = firstSelectValue.value;
+    const toCurrency = secondSelectValue.value;
+    const amount = parseInt(firstValue.value);
+
+    if (
+      exchangeRates[fromCurrency] &&
+      exchangeRates[fromCurrency][toCurrency]
+    ) {
+      const exchangeRate = exchangeRates[fromCurrency][toCurrency];
+      const result = exchangeRate * amount;
+      resultValue.placeholder = `${result}`;
+    } else {
+      console.error('can`t exchange this currency');
+    }
+  }
+};
+const exchangeListener: Function = () => {
+  const firstValue = document.getElementById(
+    'first__value'
+  ) as HTMLInputElement;
+
+  const firstSelectValue: HTMLInputElement = document.getElementById(
+    'first__select__value'
+  );
+  const secondSelectValue: HTMLInputElement = document.getElementById(
+    'second__select__value'
+  );
+  exchangeLogic(firstValue, firstSelectValue, secondSelectValue);
+};
 function createButtons(modalWindow: HTMLElement) {
   const buyTriesBtn = document.createElement('button') as HTMLButtonElement;
   buyTriesBtn.className = 'buy__tries__btn';
