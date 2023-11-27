@@ -49,24 +49,17 @@ convertBtn.addEventListener('click', (e: Event) => {
   }
 });
 
-secondSelectValue.addEventListener('change', () => {
-  if (firstSelectValue.value === '$' && secondSelectValue.value === '$') {
-    optionDollarSecond.setAttribute('disabled', '$');
-  }
-  if (firstSelectValue.value === '₴' && secondSelectValue.value === '₴') {
-    optionUahSecond.setAttribute('disabled', '₴');
-  }
-  if (firstSelectValue.value === '€' && secondSelectValue.value === '€') {
-    optionEuroSecond.setAttribute('disabled', '€');
-  }
-  if (firstSelectValue.value === '₴' && secondSelectValue.value !== '₴') {
-    optionUahSecond.removeAttribute('disabled');
-  }
-  if (firstSelectValue.value === '$' && secondSelectValue.value !== '$') {
-    optionDollarSecond.removeAttribute('disabled');
-  }
-  if (firstSelectValue.value === '€' && secondSelectValue.value !== '€') {
-    optionEuroSecond.removeAttribute('disabled');
+firstSelectValue.addEventListener('change', () => {
+  optionDollarSecond.disabled = false;
+  optionUahSecond.disabled = false;
+  optionEuroSecond.disabled = false;
+
+  if (firstSelectValue.value === '$') {
+    optionDollarSecond.disabled = true;
+  } else if (firstSelectValue.value === '₴') {
+    optionUahSecond.disabled = true;
+  } else if (firstSelectValue.value === '€') {
+    optionEuroSecond.disabled = true;
   }
 });
 
